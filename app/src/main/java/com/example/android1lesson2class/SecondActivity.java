@@ -1,11 +1,15 @@
 package com.example.android1lesson2class;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 
 import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android1lesson2class.databinding.ActivitySecondBinding;
@@ -13,6 +17,8 @@ import com.example.android1lesson2class.databinding.ActivitySecondBinding;
 
 public class SecondActivity extends AppCompatActivity {
     private ActivitySecondBinding binding;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    Uri uriImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,37 +30,68 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void listener() {
-        binding.btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                resultLauncher.launch("image/*");
-               /* Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivity(intent);*/
-            }
-        });
+
         binding.btnBrowser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent;
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://google.com"));
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://"));
+                startActivity(intent);
+            }
+        });
+
+        binding.btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+            }
+        });
+
+        binding.btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resultLauncher.launch("image/*");
+                /*Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivity(intent);*/
+            }
+        });
+
+        binding.btnWhatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String number = "+996778958280";
+                String api = "https://api.whatsapp.com/send?phone=" + number;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(api));
+                startActivity(intent);
+            }
+        });
+
+        binding.btnSendData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SecondActivity.this,MainActivity.class);
+                intent.setData(uriImg);
                 startActivity(intent);
             }
         });
 
     }
 
-    private void initialisation() {
-        Intent intent = getIntent();
-        String getDataFromMain = intent.getStringExtra("key");
-
-    }
     ActivityResultLauncher<String> resultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
                     uriImg = result;
-                    imIcfb.setImageURI(uriImg);
-
+                    binding.imAva.setImageURI(uriImg);
                 }
             });
+    private void initialisation() {
+
+
+    }
+
+
 }

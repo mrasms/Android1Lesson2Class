@@ -16,10 +16,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setup();
+        initialisation();
+        setupListener();
     }
 
-    private void setup() {
+    private void initialisation() {
+        Intent intent = getIntent();
+        binding.imAvatar.setImageURI(intent.getData());
+    }
+
+    private void setupListener() {
         binding.btnSendData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
