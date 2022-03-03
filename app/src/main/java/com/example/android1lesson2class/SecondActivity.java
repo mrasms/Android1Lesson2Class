@@ -25,7 +25,6 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySecondBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        initialisation();
         listener();
     }
 
@@ -51,8 +50,8 @@ public class SecondActivity extends AppCompatActivity {
         binding.btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resultLauncher.launch("image/*");
-                /*Intent intent = new Intent(Intent.ACTION_PICK);
+               resultLauncher.launch("image/*");
+               /* Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivity(intent);*/
             }
@@ -61,10 +60,9 @@ public class SecondActivity extends AppCompatActivity {
         binding.btnWhatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String number = "+996778958280";
-                String api = "https://api.whatsapp.com/send?phone=" + number;
+
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(api));
+                intent.setData(Uri.parse("https://api.whatsapp.com/send?phone=+996778958280"));
                 startActivity(intent);
             }
         });
@@ -78,6 +76,16 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent likeIng = new Intent(Intent.ACTION_VIEW);
+                likeIng.setData(Uri.parse("http://instagram.com/_u/aleksandr9612"));
+                startActivity(likeIng);
+            }
+        });
+
     }
 
     ActivityResultLauncher<String> resultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
@@ -88,10 +96,9 @@ public class SecondActivity extends AppCompatActivity {
                     binding.imAva.setImageURI(uriImg);
                 }
             });
-    private void initialisation() {
 
 
-    }
+
 
 
 }

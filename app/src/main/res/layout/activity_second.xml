@@ -48,6 +48,14 @@
         android:text="Open Whatsapp" />
 
     <Button
+        android:id="@+id/btn_instagram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:text="instagram" />
+
+    <Button
         android:id="@+id/btn_send_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
